@@ -4,11 +4,6 @@ import { useState } from "react";
 import { UserSidebar } from "@/components/user/UserSidebar";
 import { UserHeader } from "@/components/user/UserHeader";
 import { ChatInterface } from "@/components/user/ChatInterface";
-import { SettingsSidebar } from "@/components/settings/SettingsSidebar";
-import { GeneralSettings } from "@/components/settings/GeneralSettings";
-import { AppearanceSettings } from "@/components/settings/AppearanceSettings";
-import { NotificationSettings } from "@/components/settings/NotificationSettings";
-import { SecuritySettings } from "@/components/settings/SecuritySettings";
 
 interface Chat {
     id: string;
@@ -29,7 +24,6 @@ export default function ChatPage() {
     const [chats, setChats] = useState<Chat[]>(initialChats);
     const [activeChatId, setActiveChatId] = useState<string | null>(null);
     const [isCollapsed, setIsCollapsed] = useState(false);
-    const [settingsTab, setSettingsTab] = useState<"general" | "appearance" | "notification" | "security">("general");
 
     const handleNewChat = () => {
         const newChat: Chat = {
@@ -87,18 +81,7 @@ export default function ChatPage() {
                     <div className="mx-auto max-w-5xl space-y-6 p-6">
                         <div>
                             <h1 className="text-2xl font-bold text-foreground">Settings</h1>
-                            <p className="text-muted-foreground">
-                                Manage your preferences and account settings.
-                            </p>
-                        </div>
-                        <div className="flex gap-8">
-                            <SettingsSidebar activeTab={settingsTab} onTabChange={setSettingsTab} />
-                            <div className="flex-1 rounded-lg border border-border bg-card p-6">
-                                {settingsTab === "general" && <GeneralSettings />}
-                                {settingsTab === "appearance" && <AppearanceSettings />}
-                                {settingsTab === "notification" && <NotificationSettings />}
-                                {settingsTab === "security" && <SecuritySettings />}
-                            </div>
+                            <p className="text-muted-foreground">Coming soon — user preferences.</p>
                         </div>
                     </div>
                 );
