@@ -79,7 +79,7 @@ export default function LoginPage() {
             if (user.role === "admin") {
                 router.push("/analytics");
             } else {
-                router.push("/chat");
+                router.push("/user");
             }
         }, 500);
     };
