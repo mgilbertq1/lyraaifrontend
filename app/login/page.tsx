@@ -22,6 +22,24 @@ export default function LoginPage() {
         e.preventDefault();
         setIsLoading(true);
 
+        // --- TEMPORARY ADMIN ACCESS ---
+        if (email.toLowerCase() === "admin" && password === "admin123") {
+            const adminUser: User = {
+                id: "admin-bypass",
+                name: "System Administrator",
+                email: "admin@lyraai.com",
+                role: "admin",
+                status: "Active"
+            };
+            localStorage.setItem('lyraai_current_user', JSON.stringify(adminUser));
+            toast({
+                title: "Admin Access Granted",
+                description: "Bypassing directly to Admin Dashboard...",
+            });
+            setTimeout(() => router.push("/dashboard"), 500);
+            return;
+        }
+
         // Get users from localStorage
         const usersData = typeof window !== 'undefined'
             ? localStorage.getItem('lyraai_users')

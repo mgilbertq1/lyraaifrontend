@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Eye, EyeOff, ChevronRight, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -84,6 +85,7 @@ const oauthProviders = [
 ];
 
 export function LoginDialog({ open, onOpenChange, onLoginSuccess }: LoginDialogProps) {
+  const router = useRouter();
   const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -105,6 +107,22 @@ export function LoginDialog({ open, onOpenChange, onLoginSuccess }: LoginDialogP
 
   const handleLogin = () => {
     resetErrors();
+
+    // --- TEMPORARY ADMIN ACCESS ---
+    if (loginEmail.toLowerCase() === "admin" && loginPassword === "admin123") {
+      const adminUser = {
+        id: "admin-bypass",
+        name: "System Administrator",
+        email: "admin@lyraai.com",
+        role: "admin",
+        status: "Active"
+      };
+      localStorage.setItem('lyraai_current_user', JSON.stringify(adminUser));
+      onOpenChange(false);
+      setTimeout(() => router.push("/dashboard"), 300);
+      return;
+    }
+
     if (!loginEmail || !loginPassword) {
       setError("Email dan password wajib diisi.");
       return;

@@ -332,7 +332,7 @@ export function UserSidebar(props: UserSidebarProps) {
       <aside
         className={cn(
           "hidden md:flex h-screen flex-col border-r border-border bg-background transition-all duration-300 shrink-0",
-          props.isCollapsed ? "w-16" : "w-64"
+          props.isCollapsed ? "w-16" : "w-72"
         )}
       >
         <SidebarContent {...props} />
