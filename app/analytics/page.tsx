@@ -53,7 +53,8 @@ export default function AnalyticsPage() {
 
   const handleExport = async () => {
     try {
-      const res = await fetch("http://localhost:4000/admin/analytics/users?limit=9999", {
+      const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
+      const res = await fetch(`${API_URL}/admin/analytics/users?limit=9999`, {
         credentials: "include",
       });
       if (!res.ok) throw new Error();

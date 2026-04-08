@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:4000";
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
 
 export async function login(email: string, password: string) {
   const res = await fetch(`${API_URL}/auth/login`, {
@@ -136,7 +136,7 @@ export async function getChatHistory(conversationId: string) {
 }
 
 export async function deleteConversation(id: string) {
-  const res = await fetch(`http://localhost:4000/chat/conversations/${id}`, {
+  const res = await fetch(`${API_URL}/chat/conversations/${id}`, {
     method: "DELETE",
     credentials: "include",
   });
@@ -150,7 +150,7 @@ export async function deleteConversation(id: string) {
 
 export async function archiveConversation(id: string) {
   const res = await fetch(
-    `http://localhost:4000/chat/conversations/${id}/archive`,
+    `${API_URL}/chat/conversations/${id}/archive`,
     {
       method: "POST",
       credentials: "include",
@@ -164,7 +164,7 @@ export async function archiveConversation(id: string) {
 
 export async function unarchiveConversation(id: string) {
   const res = await fetch(
-    `http://localhost:4000/chat/conversations/${id}/unarchive`,
+    `${API_URL}/chat/conversations/${id}/unarchive`,
     {
       method: "POST",
       credentials: "include",
@@ -177,7 +177,7 @@ export async function unarchiveConversation(id: string) {
 }
 
 export async function getSettings() {
-  const res = await fetch("http://localhost:4000/settings", {
+  const res = await fetch(`${API_URL}/settings`, {
     credentials: "include",
   });
 
@@ -187,7 +187,7 @@ export async function getSettings() {
 }
 
 export async function saveSettings(data: any) {
-  const res = await fetch("http://localhost:4000/settings", {
+  const res = await fetch(`${API_URL}/settings`, {
     method: "POST",
     credentials: "include",
     headers: {
@@ -204,7 +204,7 @@ export async function saveSettings(data: any) {
 }
 
 export async function logout() {
-  const res = await fetch("http://localhost:4000/auth/logout", {
+  const res = await fetch(`${API_URL}/auth/logout`, {
     method: "POST",
     credentials: "include",
   });

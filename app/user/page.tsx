@@ -165,8 +165,9 @@ export default function ChatPage() {
 
     setLoadingChats(true);
 
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
     const res = await fetch(
-      `http://localhost:4000/chat/conversations?limit=20&offset=${reset ? 0 : offset}`,
+      `${API_URL}/chat/conversations?limit=20&offset=${reset ? 0 : offset}`,
       { credentials: "include" },
     );
 

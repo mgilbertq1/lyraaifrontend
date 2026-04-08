@@ -14,9 +14,7 @@ import {
 } from "@/components/ui/dialog";
 import Image from "next/image";
 import { login } from "@/lib/api";
-
-const API_URL = "http://localhost:4000";
-
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
 // ─── Email validation ──────────────────────────────────────────────────────────
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const BLOCKED_DOMAINS = [

@@ -1,4 +1,5 @@
-const API_URL = "http://localhost:4000/admin";
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
+const API_URL = `${BASE_URL}/admin`;
 
 async function adminFetch(path: string) {
   const res = await fetch(`${API_URL}${path}`, {
@@ -29,7 +30,7 @@ export function getActiveUsers(range: "24h" | "7d" | "30d" = "24h") {
 }
 
 export function getAdminMe() {
-  return fetch("http://localhost:4000/auth/me", {
+  return fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000"}/auth/me`, {
     credentials: "include",
   }).then((res) => (res.ok ? res.json() : null));
 }
@@ -273,7 +274,7 @@ export function getSupportTicketDetail(id: string) {
 }
 
 export function updateSupportTicketStatus(id: string, status: string) {
-  return fetch(`http://localhost:4000/admin/support/tickets/${id}`, {
+  return fetch(`${API_URL}/support/tickets/${id}`, {
     method: "PATCH",
     credentials: "include",
     headers: { "Content-Type": "application/json" },
@@ -285,7 +286,7 @@ export function updateSupportTicketStatus(id: string, status: string) {
 }
 
 export function replySupportTicket(id: string, message: string) {
-  return fetch(`http://localhost:4000/admin/support/tickets/${id}/reply`, {
+  return fetch(`${API_URL}/support/tickets/${id}/reply`, {
     method: "POST",
     credentials: "include",
     headers: { "Content-Type": "application/json" },
