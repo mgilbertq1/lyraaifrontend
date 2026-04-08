@@ -588,8 +588,7 @@ export function ChatInterface({
                               if (e.key === "Escape") handleCancelEdit();
                             }}
                             rows={Math.max(2, editText.split("\n").length)}
-                            autoFocus
-                            className="w-full resize-none border-0 bg-transparent text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-0 leading-relaxed"
+                            className="w-full resize-none border-0 bg-transparent text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-0 leading-relaxed"
                           />
                           <div className="mt-2 flex items-center justify-between">
                             {/* Add/replace image in edit mode */}
@@ -659,7 +658,7 @@ export function ChatInterface({
                           </div>
                         )}
                         {/* Normal message bubble */}
-                        <div className={`max-w-[85%] md:max-w-[70%] rounded-2xl px-4 py-3 text-sm leading-relaxed ${
+                        <div className={`max-w-[85%] md:max-w-[70%] rounded-2xl px-5 py-4 text-base leading-relaxed ${
                           msg.role === "user"
                             ? "bg-primary text-primary-foreground rounded-br-md"
                             : "bg-muted text-foreground rounded-bl-md"
@@ -667,20 +666,22 @@ export function ChatInterface({
                           {msg.image_url && (
                             <img src={msg.image_url} alt="Attachment" className="max-w-full rounded-md mb-2 object-contain" style={{ maxHeight: "200px" }} />
                           )}
-                          <div className="prose prose-sm dark:prose-invert max-w-none">
+                          <div className="prose dark:prose-invert max-w-none text-base">
                             <ReactMarkdown
                               remarkPlugins={[remarkGfm]}
                               rehypePlugins={[rehypeHighlight]}
                               components={{
-                                h1: ({ children }) => <h1 className="text-lg font-semibold mt-4">{children}</h1>,
-                                h2: ({ children }) => <h2 className="text-base font-semibold mt-3">{children}</h2>,
-                                ul: ({ children }) => <ul className="list-disc pl-5 space-y-1">{children}</ul>,
-                                ol: ({ children }) => <ol className="list-decimal pl-5 space-y-1">{children}</ol>,
-                                table: ({ children }) => <table className="w-full border-collapse border border-border my-3 text-sm">{children}</table>,
+                                h1: ({ children }) => <h1 className="text-xl font-bold mt-4 mb-2">{children}</h1>,
+                                h2: ({ children }) => <h2 className="text-lg font-bold mt-3 mb-2">{children}</h2>,
+                                h3: ({ children }) => <h3 className="text-base font-bold mt-2 mb-1">{children}</h3>,
+                                ul: ({ children }) => <ul className="list-disc pl-5 space-y-1 mb-3">{children}</ul>,
+                                ol: ({ children }) => <ol className="list-decimal pl-5 space-y-1 mb-3">{children}</ol>,
+                                p: ({ children }) => <p className="mb-3 last:mb-0 leading-relaxed">{children}</p>,
+                                table: ({ children }) => <table className="w-full border-collapse border border-border my-4 text-base">{children}</table>,
                                 thead: ({ children }) => <thead className="bg-muted">{children}</thead>,
-                                th: ({ children }) => <th className="border border-border px-3 py-2 text-left font-medium">{children}</th>,
-                                td: ({ children }) => <td className="border border-border px-3 py-2">{children}</td>,
-                                code: ({ children }) => <code className="bg-muted px-1 py-0.5 rounded text-sm">{children}</code>,
+                                th: ({ children }) => <th className="border border-border px-4 py-2 text-left font-semibold">{children}</th>,
+                                td: ({ children }) => <td className="border border-border px-4 py-2">{children}</td>,
+                                code: ({ children }) => <code className="bg-muted px-1.5 py-0.5 rounded text-[0.9em] font-mono">{children}</code>,
                               }}
                             >
                               {msg.content}
