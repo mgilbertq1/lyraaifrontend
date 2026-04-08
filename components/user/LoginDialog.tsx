@@ -156,9 +156,6 @@ export function LoginDialog({
     }
   };
 
-  const handleSocialLogin = (provider: string) => {
-    console.log("Login with", provider);
-  };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -191,25 +188,6 @@ export function LoginDialog({
           </div>
         )}
 
-        {/* Social Login */}
-        <div className="space-y-2 mb-4">
-          <Button variant="outline" className="w-full" onClick={() => handleSocialLogin("google")}>
-            Continue with Google
-          </Button>
-          <Button variant="outline" className="w-full" onClick={() => handleSocialLogin("github")}>
-            Continue with GitHub
-          </Button>
-          <Button variant="outline" className="w-full" onClick={() => handleSocialLogin("apple")}>
-            Continue with Apple
-          </Button>
-        </div>
-
-        {/* Divider */}
-        <div className="flex items-center gap-3 text-xs text-muted-foreground mb-4">
-          <div className="flex-1 h-px bg-border" />
-          or continue with email
-          <div className="flex-1 h-px bg-border" />
-        </div>
 
         {/* Signup-only fields */}
         {mode === "signup" && (

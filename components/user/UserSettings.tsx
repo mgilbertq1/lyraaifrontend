@@ -316,9 +316,8 @@ export function UserSettings({ onSettingsSaved }: UserSettingsProps) {
   const [preferences, setPreferences]         = useState(() => load("preferences", ""));
   const [notifyCompletion, setNotifyCompletion] = useState(() => loadBool("notifyCompletion", false));
   const [colorMode, setColorMode]             = useState(() => load("colorMode", "auto"));
-  const [chatFont, setChatFont]               = useState(() => load("chatFont", "Default"));
 
-  const [saved, setSaved] = useState({ fullName, callName, occupation, preferences, notifyCompletion, colorMode, chatFont });
+  const [saved, setSaved] = useState({ fullName, callName, occupation, preferences, notifyCompletion, colorMode });
   const [isDirty, setIsDirty]   = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [justSaved, setJustSaved] = useState(false);
@@ -333,7 +332,6 @@ export function UserSettings({ onSettingsSaved }: UserSettingsProps) {
         preferences:      data?.preferences ?? "",
         notifyCompletion: data?.notify_completion ?? false,
         colorMode:        data?.color_mode ?? "auto",
-        chatFont:         data?.chat_font ?? "Default",
       };
       setFullName(newSettings.fullName);
       setCallName(newSettings.callName);
@@ -341,7 +339,6 @@ export function UserSettings({ onSettingsSaved }: UserSettingsProps) {
       setPreferences(newSettings.preferences);
       setNotifyCompletion(newSettings.notifyCompletion);
       setColorMode(newSettings.colorMode);
-      setChatFont(newSettings.chatFont);
       setSaved(newSettings);
     }
     loadSettings();
@@ -352,25 +349,17 @@ export function UserSettings({ onSettingsSaved }: UserSettingsProps) {
       fullName !== saved.fullName || callName !== saved.callName ||
       occupation !== saved.occupation || preferences !== saved.preferences ||
       notifyCompletion !== saved.notifyCompletion ||
-      colorMode !== saved.colorMode || chatFont !== saved.chatFont;
+      colorMode !== saved.colorMode;
     setIsDirty(changed);
     if (changed) setJustSaved(false);
-  }, [fullName, callName, occupation, preferences, notifyCompletion, colorMode, chatFont, saved]);
+  }, [fullName, callName, occupation, preferences, notifyCompletion, colorMode, saved]);
 
   useEffect(() => {
     const map: Record<string, string> = { light: "light", dark: "dark", auto: "system" };
     setTheme(map[colorMode] ?? "system");
   }, [colorMode, setTheme]);
 
-  useEffect(() => {
-    const fontMap: Record<string, string> = {
-      Default: "'Georgia', serif",
-      Sans: "'Inter', sans-serif",
-      System: "system-ui, sans-serif",
-      "Dyslexic friendly": "'OpenDyslexic', 'Comic Sans MS', cursive",
-    };
-    document.documentElement.style.setProperty("--chat-font", fontMap[chatFont] ?? fontMap.Default);
-  }, [chatFont]);
+
 
   const handleLogout = async () => {
     try {
@@ -386,8 +375,8 @@ export function UserSettings({ onSettingsSaved }: UserSettingsProps) {
   const handleSave = async () => {
     try {
       setIsSaving(true);
-      await saveSettings({ fullName, callName, occupation, preferences, notifyCompletion, colorMode, chatFont, searchEnabled: true });
-      setSaved({ fullName, callName, occupation, preferences, notifyCompletion, colorMode, chatFont });
+      await saveSettings({ fullName, callName, occupation, preferences, notifyCompletion, colorMode, searchEnabled: true });
+      setSaved({ fullName, callName, occupation, preferences, notifyCompletion, colorMode });
       setJustSaved(true);
       setIsDirty(false);
       onSettingsSaved?.();
@@ -530,19 +519,7 @@ export function UserSettings({ onSettingsSaved }: UserSettingsProps) {
                 </div>
               </div>
 
-              <div className="space-y-4 pt-2">
-                <h3 className="text-[13px] font-medium text-foreground">Chat font</h3>
-                <div className="flex flex-wrap gap-4 pt-1">
-                  {["Default", "Sans", "System", "Dyslexic friendly"].map((font) => (
-                    <div key={font} className="flex flex-col items-center gap-3">
-                      <button onClick={() => setChatFont(font)} className={cn("h-[84px] w-28 rounded-xl border flex items-center justify-center transition-all bg-card shadow-sm", chatFont === font ? "border-primary ring-1 ring-primary bg-primary/5" : "border-border/60 hover:border-foreground/30")}>
-                        <span className={cn("text-[28px] text-foreground/90", font === "Sans" ? "font-sans" : font === "System" ? "font-system" : "font-serif")}>Aa</span>
-                      </button>
-                      <span className="text-[13px] text-muted-foreground">{font}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
+
             </div>
           )}
 
