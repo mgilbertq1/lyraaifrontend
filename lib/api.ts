@@ -197,7 +197,8 @@ export async function saveSettings(data: any) {
   });
 
   if (!res.ok) {
-    throw new Error("Failed to save settings");
+    const errorData = await res.json().catch(() => ({}));
+    throw new Error(errorData?.message || "Failed to save settings");
   }
 
   return res.json();

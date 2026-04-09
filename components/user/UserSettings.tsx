@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { getSettings, saveSettings, logout, getMe } from "@/lib/api";
+import { toast } from "sonner";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
 
@@ -380,8 +381,9 @@ export function UserSettings({ onSettingsSaved }: UserSettingsProps) {
       setJustSaved(true);
       setIsDirty(false);
       onSettingsSaved?.();
-    } catch (err) {
-      console.error("Save failed");
+    } catch (err: any) {
+      console.error("Save failed:", err);
+      toast.error(err.message || "Failed to save settings");
     } finally {
       setIsSaving(false);
     }
