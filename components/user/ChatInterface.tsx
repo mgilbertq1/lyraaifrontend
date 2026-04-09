@@ -117,13 +117,13 @@ export function ChatInterface({
         const def = data.find((m: any) => m.is_default) ?? data[0];
         setSelectedModelId(def.id);
       }
-    }).catch(() => {});
+    }).catch(() => { });
   }, [isGuest]);
 
   // Fetch quota for logged-in users
   useEffect(() => {
     if (isGuest) return;
-    getQuotaUsage().then((data) => { if (data) setQuota(data); }).catch(() => {});
+    getQuotaUsage().then((data) => { if (data) setQuota(data); }).catch(() => { });
   }, [isGuest]);
 
   const handleDeleteMessage = async (msg: Message) => {
@@ -199,7 +199,7 @@ export function ChatInterface({
   // Refresh quota after each message sent
   const refreshQuota = () => {
     if (isGuest) return;
-    getQuotaUsage().then((data) => { if (data) setQuota(data); }).catch(() => {});
+    getQuotaUsage().then((data) => { if (data) setQuota(data); }).catch(() => { });
   };
 
   const handleSend = async () => {
@@ -658,11 +658,10 @@ export function ChatInterface({
                           </div>
                         )}
                         {/* Normal message bubble */}
-                        <div className={`max-w-[85%] md:max-w-[70%] rounded-2xl px-5 py-4 text-base leading-relaxed ${
-                          msg.role === "user"
-                            ? "bg-primary text-primary-foreground rounded-br-md"
+                        <div className={`max-w-[85%] md:max-w-[70%] rounded-2xl px-5 py-4 text-base leading-relaxed ${msg.role === "user"
+                            ? "bg-[#5D4BEE] text-[#4C29CD] dark:bg-[#43318F] dark:text-[#F3F0FF] rounded-br-md"
                             : "bg-muted text-foreground rounded-bl-md"
-                        }`}>
+                          }`}>
                           {msg.image_url && (
                             <img src={msg.image_url} alt="Attachment" className="max-w-full rounded-md mb-2 object-contain" style={{ maxHeight: "200px" }} />
                           )}
