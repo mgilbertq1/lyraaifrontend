@@ -659,8 +659,8 @@ export function ChatInterface({
                         )}
                         {/* Normal message bubble */}
                         <div className={`max-w-[85%] md:max-w-[70%] rounded-2xl px-5 py-4 text-base leading-relaxed ${msg.role === "user"
-                            ? "bg-[#5D4BEE] text-[#4C29CD] dark:bg-[#43318F] dark:text-[#F3F0FF] rounded-br-md"
-                            : "bg-muted text-foreground rounded-bl-md"
+                          ? "bg-[#5D4BEE] text-[#FFFFFF] dark:bg-[#43318F] dark:text-[#F3F0FF] rounded-br-md"
+                          : "bg-muted text-foreground rounded-bl-md"
                           }`}>
                           {msg.image_url && (
                             <img src={msg.image_url} alt="Attachment" className="max-w-full rounded-md mb-2 object-contain" style={{ maxHeight: "200px" }} />
